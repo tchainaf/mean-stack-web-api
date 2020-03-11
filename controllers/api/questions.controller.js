@@ -4,7 +4,7 @@ var questionService = require('services/question.service');
 
 router.post('/', createQuestion);
 router.get('/:_id', getCurrentQuestion);
-router.get('/list/:username', listQuestions);
+router.get('/list/:userId', listQuestions);
 router.put('/:_id', updateQuestion);
 router.delete('/:_id', deleteQuestion);
 
@@ -35,7 +35,7 @@ function getCurrentQuestion(req, res) {
 }
 
 function listQuestions(req, res) {
-    questionService.getList(req.params.username)
+    questionService.getList(req.params.userId)
         .then(function (questions) {
             if (questions) {
                 res.send(questions);

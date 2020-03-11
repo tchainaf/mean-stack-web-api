@@ -27,13 +27,13 @@ function getById(_id) {
     return deferred.promise;
 }
 
-function getList(username) {
+function getList(userIdParam) {
     var deferred = Q.defer();
 
-    db.questions.find({ username: username }, function (err, question) {
+    db.questions.find({ userId: userIdParam }).toArray(function (err, question) {
         if (err) deferred.reject(err.name + ': ' + err.message);
-
-        deferred.resolve();
+        
+        deferred.resolve(question);
     });
 
     return deferred.promise;
@@ -93,7 +93,7 @@ function update(_id, questionParam) {
         // fields to update
         var set = {
             question: questionParam.question,
-            username: questionParam.username,
+            userId: questionParam.userId,
         };
 
         db.questions.update(
